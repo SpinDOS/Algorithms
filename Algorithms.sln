@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KormenAlgorithms", "KormenAlgorithms\KormenAlgorithms.csproj", "{D840CCA2-CBD1-4269-9531-1CD7E8F08CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StivensonAlgorithms", "StivensonAlgorithms\StivensonAlgorithms.csproj", "{AFAAF842-FA48-464B-8E14-5D25D336860D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithms", "Algorithms\Algorithms.csproj", "{4C027472-3880-4DE4-ABD4-B6BCE62AEAA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D840CCA2-CBD1-4269-9531-1CD7E8F08CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D840CCA2-CBD1-4269-9531-1CD7E8F08CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D840CCA2-CBD1-4269-9531-1CD7E8F08CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D840CCA2-CBD1-4269-9531-1CD7E8F08CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFAAF842-FA48-464B-8E14-5D25D336860D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFAAF842-FA48-464B-8E14-5D25D336860D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFAAF842-FA48-464B-8E14-5D25D336860D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFAAF842-FA48-464B-8E14-5D25D336860D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C027472-3880-4DE4-ABD4-B6BCE62AEAA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C027472-3880-4DE4-ABD4-B6BCE62AEAA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C027472-3880-4DE4-ABD4-B6BCE62AEAA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C027472-3880-4DE4-ABD4-B6BCE62AEAA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
