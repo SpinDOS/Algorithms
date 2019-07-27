@@ -19,11 +19,6 @@ namespace KormenAlgorithms.RedBlackTree
                 get => !IsBlack;
                 set => IsBlack = !value;
             }
-            public bool IsLeft => this == Parent.Left;
-            public bool IsRight => !IsLeft;
-            public Node Sibling => IsLeft ? Parent.Right : Parent.Left;
-            public Node Uncle => Parent.Sibling;
-            public Node GrandParent => Parent.Parent;
 
             public override string ToString() => $"{(IsBlack? "B" : "R")}: {Key.ToString()}:{Value.ToString()}";
         }

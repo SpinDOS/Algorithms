@@ -6,16 +6,12 @@ namespace KormenAlgorithms.RedBlackTree
     {
         internal void Check()
         {
-            var root = Root.Left;
+            Assert(IsBlack(_root));
+            CheckRedChildren(_root);
+            CheckBlackHeight(_root);
 
-            Assert(root == null || root.IsBlack);
-            CheckRedChildren(root);
-            CheckBlackHeight(root);
-
-            if (root != null)
-            {
-                CheckBinaryTree(root);
-            }
+            if (_root != null)
+                CheckBinaryTree(_root);
         }
 
         private void CheckRedChildren(Node node)
@@ -30,8 +26,8 @@ namespace KormenAlgorithms.RedBlackTree
             
             if (node.IsRed)
             {
-                Assert(left == null || left.IsBlack);
-                Assert(right == null || right.IsBlack);
+                Assert(IsBlack(left));
+                Assert(IsBlack(right));
             }
             
             CheckRedChildren(left);
@@ -72,9 +68,7 @@ namespace KormenAlgorithms.RedBlackTree
         private void Assert(bool b)
         {
             if (!b)
-            {
                 throw new Exception($"Check failed for tree: {Environment.NewLine}{this.ToString()}");
-            }
         }
     }
 }

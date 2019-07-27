@@ -6,110 +6,90 @@ namespace KormenAlgorithms.RedBlackTree
 {
     public partial class RedBlackTree<TKey, TValue> where TKey: IComparable<TKey>
     {
-        // https://ru.wikipedia.org/wiki/Красно-чёрное_дерево
+        // https://en.wikipedia.org/wiki/Red–black_tree
+
+        private Node _root;
         
-        private readonly Node Root = new Node(); // fake node
+        public int Count { get; private set; }
 
         public void Add(TKey key, TValue value)
         {
-            var parent = FindParent(key, out var isLeft);
-            var node = isLeft? parent.Left : parent.Right;
+            var node = FindNode(key, out var parent);
             if (node != null)
-            {
                 throw new ArgumentException($"An item with the same key has already been added. Key: {key.ToString()}", nameof(key));
-            }
             
-            AddInternal(key, value, parent, isLeft);
+            AddInternal(key, value, parent);
         }
 
         public bool TryGet(TKey key, out TValue value)
         {
-            var parent = FindParent(key, out var isLeft);
-            var node = isLeft? parent.Left : parent.Right;
+            var node = FindNode(key, out _);
+            value = node != null? node.Value : default(TValue);
+            return node != null;
+        }
+
+        public bool Remove(TKey key)
+        {
+            var node = FindNode(key, out _);
             if (node == null)
-            {
-                value = default(TValue); 
                 return false;
-            }
-            
-            value = node.Value;
+
+            RemoveInternal(node);
+
+            Count--;
             return true;
         }
-        
-        public bool Remove(TKey key) => throw new NotImplementedException();
 
         public TValue this[TKey key]
         {
-            get => TryGet(key, out var result)? result : throw new KeyNotFoundException(key.ToString());
+            get
+            {
+                var node = FindNode(key, out _);
+                return node != null? node.Value: throw new KeyNotFoundException(key.ToString());
+            }
+            
             set
             {
-                var parent = FindParent(key, out var isLeft);
-                var node = isLeft? parent.Left : parent.Right;
+                var node = FindNode(key, out var parent);
                 if (node == null)
-                {
-                    AddInternal(key, value, parent, isLeft);
-                }
+                    AddInternal(key, value, parent);
                 else
-                {
                     node.Value = value;
-                }
             }
         }
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            ToStringInternal(stringBuilder, Root.Left, 0);
+            ToStringInternal(stringBuilder, _root, 0);
             return stringBuilder.ToString();
         }
 
-        private Node FindParent(TKey key, out bool isLeft)
+        private Node FindNode(TKey key, out Node parent)
         {
-            var cur = Root;
-            isLeft = true;
+            parent = null;
+            var current = _root;
+            
             while (true)
             {
-                var next = isLeft? cur.Left : cur.Right;
-                if (next == null)
-                {
-                    return cur;
-                }
+                if (current == null)
+                    return null;
 
-                var compare = key.CompareTo(next.Key);
+                var compare = key.CompareTo(current.Key);
                 if (compare == 0)
-                {
-                    return cur;
-                }
+                    return current;
 
-                isLeft = compare < 0;
-                cur = next;
+                parent = current;
+                current = compare < 0 ? current.Left : current.Right;
             }
         }
 
-        private void AddInternal(TKey key, TValue value, Node parent, bool isLeft)
+        private static void ToStringInternal(StringBuilder stringBuilder, Node node, int level)
         {
-            var newNode = new Node(key, value, parent);
-            if (isLeft)
-            {
-                parent.Left = newNode;
-            }
-            else
-            {
-                parent.Right = newNode;
-            }
-
-            OnInsert(newNode);
-        }
-
-        private void ToStringInternal(StringBuilder stringBuilder, Node node, int level)
-        {
-            var prefix = new string(' ', level * 2);
-            var content = node == null? "B: Empty" : node.ToString();
-            stringBuilder.AppendLine(prefix + content);
+            stringBuilder.Append(new string(' ', level * 2));
+            stringBuilder.AppendLine(node?.ToString() ?? "B: Empty");
             if (node == null)
-            {
                 return;
-            }
             
             ToStringInternal(stringBuilder, node.Left, level + 1);
             ToStringInternal(stringBuilder, node.Right, level + 1);

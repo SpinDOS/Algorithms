@@ -4,115 +4,70 @@ namespace KormenAlgorithms.RedBlackTree
 {
     public partial class RedBlackTree<TKey, TValue> where TKey: IComparable<TKey>
     {
-        private void OnInsert(Node node)
+        private void AddInternal(TKey key, TValue value, Node parent)
         {
-            var parent = node.Parent;
-            if (parent == Root)
-            {
-                node.IsBlack = true;
-                return;
-            }
-
-            if (parent.IsBlack)
-            {
-                return;
-            }
+            var newNode = new Node(key, value, parent);
             
-            var grandParent = node.GrandParent;
-            var uncle = node.Uncle;
-            if (uncle != null && uncle.IsRed)
-            {
-                uncle.IsBlack = parent.IsBlack = true;
-                grandParent.IsRed = true;
-                
-                OnInsert(grandParent);
-                return;
-            }
-
-            bool nodeIsLeft = node.IsLeft;
-            if (nodeIsLeft != parent.IsLeft)
-            {
-                if (nodeIsLeft)
-                {
-                    RotateRight(parent);
-                }
-                else
-                {
-                    RotateLeft(parent);
-                }
-
-                nodeIsLeft = !nodeIsLeft;
-                Swap(ref node, ref parent);
-            }
-
-            if (nodeIsLeft)
-            {
-                RotateRight(grandParent);
-            }
+            if (parent == null)
+                _root = newNode;
+            else if (key.CompareTo(parent.Key) < 0)
+                parent.Left = newNode;
             else
+                parent.Right = newNode;
+
+            OnInsert(newNode);
+            _root.IsBlack = true;
+            Count++;
+        }
+        
+        private void OnInsert(Node newRedNode)
+        {
+            while (true)
             {
-                RotateLeft(grandParent);
+                var parent = newRedNode.Parent;
+                if (parent == null || parent.IsBlack)
+                    return;
+
+                // parent is red => parent is not root
+                var grandParent = parent.Parent;
+                var uncle = Sibling(parent, grandParent);
+            
+                if (IsBlack(uncle))
+                {
+                    parent = EnsureNodeIsOnOuterPlace(newRedNode, parent);
+                    RotateGrandParentAndRecolorOnInsert(parent, grandParent);
+                    return;
+                }
+
+                parent.IsBlack = uncle.IsBlack = true;
+                grandParent.IsRed = true;
+                newRedNode = grandParent;
             }
+        }
+
+        private Node EnsureNodeIsOnOuterPlace(Node node, Node parent)
+        {
+            var nodeIsLeft = IsLeft(node, parent);
+            if (nodeIsLeft == IsLeft(parent))
+                return parent;
+            
+            if (nodeIsLeft)
+                RotateRight(parent);
+            else
+                RotateLeft(parent);
+
+            return node;
+        }
+
+        private void RotateGrandParentAndRecolorOnInsert(Node parent, Node grandParent)
+        {
+            if (IsLeft(parent, grandParent))
+                RotateRight(grandParent);
+            else
+                RotateLeft(grandParent);
 
             grandParent.IsRed = true;
             parent.IsBlack = true;
-        }
-
-        private static void RotateLeft(Node center)
-        {
-            var parent = center.Parent;
-            var right = center.Right;
-            var rightLeft = right.Left;
-
-            if (center.IsLeft)
-            {
-                parent.Left = right;
-            }
-            else
-            {
-                parent.Right = right;
-            }
-            
-            right.Parent = parent;
-
-            right.Left = center;
-            center.Parent = right;
-
-            center.Right = rightLeft;
-            if (rightLeft != null)
-
-            rightLeft.Parent = center;
-        }
-
-        private static void RotateRight(Node center)
-        {
-            var parent = center.Parent;
-            var left = center.Left;
-            var leftRight = left.Right;
-
-            if (center.IsLeft)
-            {
-                parent.Left = left;
-            }
-            else
-            {
-                parent.Right = left;
-            }
-            left.Parent = parent;
-
-            left.Right = center;
-            center.Parent = left;
-
-            center.Left = leftRight;
-            if (leftRight != null)
-            leftRight.Parent = center;
-        }
-
-        private static void Swap<T>(ref T x, ref T y)
-        {
-            var temp = x;
-            x = y;
-            y = temp;
         }
     }
 }

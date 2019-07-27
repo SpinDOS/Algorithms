@@ -6,7 +6,7 @@ namespace KormenAlgorithms
     {
         static void Main(string[] args)
         {
-            for (int i = 0; i < 1000; i++)
+            while(true)
             {
                 try
                 {
@@ -18,9 +18,6 @@ namespace KormenAlgorithms
                     throw;
                 }
             }
-            
-            Console.WriteLine("OK");
-            Console.ReadKey(true);
         }
 
         private static void RunTests()
