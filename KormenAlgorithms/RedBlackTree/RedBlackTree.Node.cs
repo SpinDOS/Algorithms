@@ -4,15 +4,15 @@ namespace KormenAlgorithms.RedBlackTree
 {
     public partial class RedBlackTree<TKey, TValue> where TKey: IComparable<TKey>
     {
-        private class Node
+        internal sealed class Node
         {
-            public Node() { }
             public Node(TKey key, TValue value, Node parent) { Key = key; Value = value; Parent = parent; }
 
             public TKey Key;
             public TValue Value;
-            public bool IsBlack;
             public Node Left, Right, Parent;
+
+            public bool IsBlack { get; set; }
 
             public bool IsRed
             {

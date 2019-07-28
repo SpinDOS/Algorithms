@@ -8,7 +8,7 @@ namespace KormenAlgorithms.RedBlackTree
     {
         // https://en.wikipedia.org/wiki/Red–black_tree
 
-        private Node _root;
+        internal Node _root;
         
         public int Count { get; private set; }
 
@@ -58,10 +58,10 @@ namespace KormenAlgorithms.RedBlackTree
             }
         }
 
-        public override string ToString()
+        public string PrintTree()
         {
             var stringBuilder = new StringBuilder();
-            ToStringInternal(stringBuilder, _root, 0);
+            PrintTreeInternal(stringBuilder, _root, 0);
             return stringBuilder.ToString();
         }
 
@@ -84,15 +84,15 @@ namespace KormenAlgorithms.RedBlackTree
             }
         }
 
-        private static void ToStringInternal(StringBuilder stringBuilder, Node node, int level)
+        private static void PrintTreeInternal(StringBuilder stringBuilder, Node node, int level)
         {
             stringBuilder.Append(new string(' ', level * 2));
             stringBuilder.AppendLine(node?.ToString() ?? "B: Empty");
             if (node == null)
                 return;
             
-            ToStringInternal(stringBuilder, node.Left, level + 1);
-            ToStringInternal(stringBuilder, node.Right, level + 1);
+            PrintTreeInternal(stringBuilder, node.Left, level + 1);
+            PrintTreeInternal(stringBuilder, node.Right, level + 1);
         }
         
     }

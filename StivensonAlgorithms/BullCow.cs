@@ -11,6 +11,7 @@ namespace Algorithms
         public static void Start()
         {
             const int max = 10000;
+            Random rnd = new Random();
             string[] vars = new string[max];
             bool[] resheto = new bool[max];
             for (int i = 0; i < max; i++)
@@ -23,7 +24,7 @@ namespace Algorithms
 
             do
             {
-                int next = FindNext(resheto, max);
+                int next = FindNext(resheto, max, rnd);
                 if (next == -1)
                 {
                     Console.WriteLine("You are lying");
@@ -46,9 +47,8 @@ namespace Algorithms
 
         }
 
-        private static int FindNext(bool[] a, int max)
+        private static int FindNext(bool[] a, int max, Random rnd)
         {
-            Random rnd = new Random();
             int r = rnd.Next(max);
             int l = r;
             while (l >= 0 || r < max)

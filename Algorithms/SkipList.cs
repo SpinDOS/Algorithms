@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace SkipList
+namespace Algorithms
 {
     public sealed class SkipList<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>> 
         where TKey : IComparable<TKey>
     {
         private const int DefaultMaxPossibleLevel = 16;
-        private static readonly Random Rnd = new Random();
+        private readonly Random _rnd = new Random();
 
         private Node _head = new Node(default(TKey), default(TValue), DefaultMaxPossibleLevel);
         private int _maxLevel = -1;
@@ -158,7 +158,7 @@ namespace SkipList
         private int GetRandomLevel()
         {
             var level = 0;
-            while (Rnd.NextDouble() < _probability)
+            while (_rnd.NextDouble() < _probability)
                 level++;
 
             return Math.Min(level, MaxPossibleLevel - 1);
