@@ -82,6 +82,82 @@ namespace AlgorithmTests.CpAlgorithmsTests
             }
         }
 
+        [Test]
+        public void MatrixPowTest()
+        {
+            for (var k = 0U; k < 10; k++)
+            {
+                var powedMatrix = FastArithmetics.MatrixPow(MatrixHelper.OneMatrix(3), k);
+                Assert.AreEqual(MatrixHelper.OneMatrix(3), powedMatrix);
+            }
+
+            Assert.AreEqual(new long[2, 2]
+                {
+                    {-275, -50},
+                    {75, -350},
+                },
+                FastArithmetics.MatrixPow(
+                    new long[2, 2]
+                    {
+                        {1, 2,},
+                        {-3, 4,},
+                    }, 5));
+        }
+
+        [Test]
+        public void MatrixMultiplyTest()
+        {
+            Assert.AreEqual(
+                new long[2, 4]
+                {
+                    { -1, -5, 6, 0 }, 
+                    { -1, -5, 8, 4 },
+                }, 
+                MatrixHelper.Multiply(
+                    new long[2, 3]
+                    {
+                        { 1, 2, 3 }, 
+                        { 2, 3, 4 }
+                    },
+                    new long[3, 4]
+                    {
+                        { 2, 3, 1, 4 }, 
+                        { -3, -1, -2, 4 }, 
+                        { 1, -2, 3, -4 }
+                    }));
+            
+            Assert.AreEqual(
+                new long[1, 1] { { 6 } },
+                MatrixHelper.Multiply(
+                    new long[1, 2] 
+                        { { 1, 2 } }, 
+                    new long[2, 1]
+                    {
+                        { 0 }, 
+                        { 3 }
+                    }));
+            
+            Assert.AreEqual(
+                new long[3, 1]
+                {
+                    { -5 }, 
+                    { 10 }, 
+                    { -8 }
+                },
+                MatrixHelper.Multiply(
+                    new long[3, 2]
+                    {
+                        { 1, -2 },
+                        { -4, 3 },
+                        { 2, -3 }
+                    }, 
+                    new long[2, 1]
+                    {
+                        { -1 }, 
+                        { 2 }
+                    }));
+        }
+
         private BigInteger NaivePow(long x, uint y)
         {
             var result = new BigInteger(1);

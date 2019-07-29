@@ -61,5 +61,36 @@ namespace CpAlgorithms.BinaryExponentiation
 
             return result;
         }
+        
+        public static long[,] MatrixPow(long[,] matrix, uint k)
+        {
+            var n = matrix.GetLength(0);
+            if (matrix.GetLength(1) != n)
+                throw new ArgumentException("Expected square matrix");
+
+            var result = MatrixHelper.OneMatrix(n);
+            
+            if (k <= 0)
+                return result;
+            
+            var temp = new long[n, n];
+            
+            while (k > 0)
+            {
+                if ((k & 1) != 0)
+                    MatrixMultiplyAndSwap(ref result, matrix, ref temp);
+                
+                MatrixMultiplyAndSwap(ref matrix, matrix, ref temp);
+                k >>= 1;
+            }
+
+            return result;
+        }
+
+        private static void MatrixMultiplyAndSwap(ref long[,] x, long[,] y, ref long[,] result)
+        {
+            MatrixHelper.Multiply(x, y, result);
+            CommonHelper.Swap(ref x, ref result);
+        }
     }
 }
