@@ -64,6 +64,8 @@ namespace CpAlgorithms.BinaryExponentiation
         
         public static long[,] MatrixPow(long[,] matrix, uint k)
         {
+            // O (n^3 * ln k)
+
             var n = matrix.GetLength(0);
             if (matrix.GetLength(1) != n)
                 throw new ArgumentException("Expected square matrix");
