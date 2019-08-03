@@ -20,7 +20,7 @@ namespace CpAlgorithms.BinaryExponentiation
             return result;
         }
 
-        public static long ModuloPow(long x, uint y, long m)
+        public static long ModuloPow(long x, ulong y, long m)
         {
             // O(ln y)
             if (m == 1)
