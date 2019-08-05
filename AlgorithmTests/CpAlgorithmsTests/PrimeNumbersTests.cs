@@ -7,7 +7,7 @@ namespace AlgorithmTests.CpAlgorithmsTests
 {
     public class EratosthenesSieveTests
     {
-        private static readonly int[] PrimeNumbers = new int[]
+        private static readonly int[] PrimeNumbers = new int[170]
         {
             2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103,
             107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223,
@@ -40,6 +40,26 @@ namespace AlgorithmTests.CpAlgorithmsTests
                 var isPrime = Array.BinarySearch(PrimeNumbers, num) >= 0;
                 Assert.AreEqual(isPrime, Primality.IsPrimeSimple((ulong)num), $"Simple primality for {num}");
                 Assert.AreEqual(isPrime, Primality.MillerRabin(num), $"MillerRabin for {num}");
+            }
+        }
+
+        [Test]
+        [TestCase(5, 10_000)]
+        [TestCase(20, 200)]
+        public void FactorizationTest(int possiblePrimesCount, int iterations)
+        {
+            var rnd = TestContext.CurrentContext.Random;
+            for (var i = 0; i < iterations; i++)
+            {
+                var factors = Enumerable.Range(0, rnd.Next(1, 10))
+                    .Select(it => (long)PrimeNumbers[rnd.Next(possiblePrimesCount)])
+                    .OrderBy(it => it)
+                    .ToList();
+
+                var composite = factors.Aggregate(1L, (x, y) => x * y);
+                Assert.AreEqual(factors, IntegerFactorization.SimpleFactorize(composite), $"Simple factorize for {composite}");
+                Assert.AreEqual(factors, IntegerFactorization.OptimizedFactorize(composite), $"Optimized factorize for {composite}");
+                Assert.AreEqual(factors, IntegerFactorization.EratosthenesSieveFactorize(composite), $"Eratosthenes sieve factorize for {composite}");
             }
         }
     }
