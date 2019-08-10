@@ -43,6 +43,8 @@ namespace CpAlgorithms.BinaryExponentiation
 
         public static long ModuloBigMultiply(long x, long y, long m)
         {
+            // O(ln y)
+            
             if (m > long.MaxValue / 2)
                 throw new ArgumentOutOfRangeException(nameof(m), "Modulo is not safe to use");
 

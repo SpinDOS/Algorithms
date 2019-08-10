@@ -10,6 +10,8 @@ namespace CpAlgorithms
 
         public static bool IsPrimeSimple(ulong num)
         {
+            // O (sqrt(n))
+            
             if (num <= 1)
                 return false;
             
@@ -25,12 +27,15 @@ namespace CpAlgorithms
             return true;
         }
 
+        // O (ln num)
         public static bool MillerRabin(int num) => MillerRabin(num, MillerRabinBasesForInt);
         
+        // O (ln num)
         public static bool MillerRabin(long num) => MillerRabin(num, MillerRabinBasesForLong);
 
         private static bool MillerRabin(long num, uint[] basesToCheck)
         {
+            // O (basesToCheck.Length * ln num)
             num = Math.Abs(num);
 
             if (num < 2)

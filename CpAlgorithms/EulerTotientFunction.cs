@@ -4,6 +4,7 @@ namespace CpAlgorithms
     {
         public static long Phi(long n)
         {
+            // O (sqrt n)
             var result = n;
 
             var lastPrime = 0L;

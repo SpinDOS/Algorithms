@@ -5,6 +5,8 @@ namespace CpAlgorithms
 {
     public static class SequenceCycleDetector
     {
+        // Both is O (cycleStart + period)
+        
         public static (int cycleStart, int period) Floyd(IEnumerable<int> sequence) =>
             ExecuteInTryFinally(sequence, FloydInternal);
 

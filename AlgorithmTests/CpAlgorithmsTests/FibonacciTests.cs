@@ -12,6 +12,13 @@ namespace AlgorithmTests.CpAlgorithmsTests
             ulong prev0 = 0, prev1 = 1;
             for (var n = 0U; prev1 >= prev0; n++)
             {
+                Assert.AreEqual(prev0, FibonacciNumbers.SimpleFibonacci(n).fn, 
+                    $"{n}'th Fibonacci number");
+                Assert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursive(n).fn, 
+                    $"{n}'th Fibonacci number");
+                // too long
+                // Assert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursiveBad(n), 
+                //     $"{n}'th Fibonacci number");
                 Assert.AreEqual(prev0, FibonacciNumbers.FibonacciByBinaryExponentiation(n).fn, 
                     $"{n}'th Fibonacci number");
                 Assert.AreEqual(prev0, FibonacciNumbers.FibonacciByMatrixPow(n).fn, 

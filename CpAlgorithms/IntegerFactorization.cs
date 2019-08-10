@@ -13,6 +13,7 @@ namespace CpAlgorithms
         
         public static List<long> SimpleFactorize(long num)
         {
+            // O (sqrt n)
             num = Math.Abs(num);
             
             var result = new List<long>();
@@ -27,6 +28,7 @@ namespace CpAlgorithms
 
         public static List<long> OptimizedFactorize(long num)
         {
+            // O (sqrt n)
             num = Math.Abs(num);
             
             var result = new List<long>();
@@ -49,6 +51,7 @@ namespace CpAlgorithms
 
         public static List<long> EratosthenesSieveFactorize(long num)
         {
+            // complexity is same as EratosthenesSieve complexity: O (n * ln (ln n)) or O (n)
             num = Math.Abs(num);
             
             var result = new List<long>();

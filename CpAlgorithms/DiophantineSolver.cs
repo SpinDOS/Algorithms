@@ -6,6 +6,7 @@ namespace CpAlgorithms
     {
         public static bool TrySolve(long a, long b, long c, out long x, out long y, out long gcd)
         {
+            // O (ln (min(a, b))
             // solve a * x + b * y = c
             if (a == 0 && b == 0)
             {
@@ -26,6 +27,8 @@ namespace CpAlgorithms
             (long minX, long maxX) intervalX,
             (long minY, long maxY) intervalY)
         {
+            // O (ln (min(a, b))
+
             if (a == 0 && b == 0)
                 return c == 0 ? ulong.MaxValue : 0;
             
