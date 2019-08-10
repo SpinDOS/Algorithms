@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CpAlgorithms
 {
@@ -65,6 +66,21 @@ namespace CpAlgorithms
             return result;
         }
 
+        public static SortedDictionary<long, uint> FactorizeToPowers(long num)
+        {
+            // Can be used with any method above with the same complexity
+            var result = new SortedDictionary<long, uint>();
+            
+            num = Math.Abs(num);
+            for (var i = 2L; i * i <= num; i++)
+                AddFactorsPowers(ref num, i, result);
+            
+            if (num > 1)
+                result.Add(num, 1);
+
+            return result;
+        }
+
         private static void AddFactors(ref long num, long factor, List<long> factors)
         {
             while (num % factor == 0)
@@ -72,6 +88,20 @@ namespace CpAlgorithms
                 factors.Add(factor);
                 num /= factor;
             }
+        }
+        
+        private static void AddFactorsPowers(ref long num, long factor, SortedDictionary<long, uint> factors)
+        {
+            var power = 0U;
+            
+            while (num % factor == 0)
+            {
+                power++;
+                num /= factor;
+            }
+
+            if (power > 0)
+                factors.Add(factor, power);
         }
     }
 }

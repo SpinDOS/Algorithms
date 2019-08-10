@@ -7,6 +7,7 @@ namespace AlgorithmTests.CpAlgorithmsTests
 {
     public class EratosthenesSieveTests
     {
+        // https://oeis.org/A000040
         private static readonly int[] PrimeNumbers = new int[170]
         {
             2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103,
@@ -60,6 +61,9 @@ namespace AlgorithmTests.CpAlgorithmsTests
                 Assert.AreEqual(factors, IntegerFactorization.SimpleFactorize(composite), $"Simple factorize for {composite}");
                 Assert.AreEqual(factors, IntegerFactorization.OptimizedFactorize(composite), $"Optimized factorize for {composite}");
                 Assert.AreEqual(factors, IntegerFactorization.EratosthenesSieveFactorize(composite), $"Eratosthenes sieve factorize for {composite}");
+
+                var byPowers = factors.GroupBy(it => it).ToDictionary(g => g.Key, g => (uint)g.Count());
+                Assert.AreEqual(byPowers, IntegerFactorization.FactorizeToPowers(composite), $"Factorization to factors with powers for {composite}");
             }
         }
     }

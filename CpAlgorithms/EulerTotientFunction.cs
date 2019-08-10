@@ -6,16 +6,9 @@ namespace CpAlgorithms
         {
             // O (sqrt n)
             var result = n;
-
-            var lastPrime = 0L;
-            foreach (var prime in IntegerFactorization.SimpleFactorize(n))
-            {
-                if (prime == lastPrime)
-                    continue;
-
-                lastPrime = prime;
+            
+            foreach (var prime in IntegerFactorization.FactorizeToPowers(n).Keys)
                 result -= result / prime;
-            }
 
             return result;
         }
