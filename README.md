@@ -1,4 +1,7 @@
 # Algorithms
+
+![Build status](https://github.com/SpinDOS/Algorithms/workflows/Build%20and%20test/badge.svg)
+
 Different algorithms
 
 * Cache algorightms
