@@ -1,4 +1,5 @@
 using System;
+using CpAlgorithms.Algebra.Fundamentals;
 using CpAlgorithms.Algebra.Fundamentals.BinaryExponentiation;
 
 namespace CpAlgorithms.Algebra.PrimeNumbers
@@ -8,6 +9,8 @@ namespace CpAlgorithms.Algebra.PrimeNumbers
         private static readonly uint[] MillerRabinBasesForInt = new uint[] { 2, 3, 5, 7 };
         
         private static readonly uint[] MillerRabinBasesForLong = new uint[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37 };
+
+        public static bool AreCoPrime(long x, long y) => EuclideanGcdAlgorithm.Gcd(x, y) == 1;
 
         public static bool IsPrimeSimple(ulong num)
         {
