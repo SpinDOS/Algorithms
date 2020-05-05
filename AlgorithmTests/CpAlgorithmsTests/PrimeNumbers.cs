@@ -1,6 +1,6 @@
 namespace AlgorithmTests.CpAlgorithmsTests
 {
-    public static class PrimeNumbers
+    public static class PrimeNumbersSequence
     {
         // https://oeis.org/A000040
         public static readonly int[] Primes = new int[170]
