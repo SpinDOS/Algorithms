@@ -1,6 +1,7 @@
 using System;
 using CpAlgorithms.Algebra.Fundamentals;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
 {
@@ -12,28 +13,28 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
             ulong prev0 = 0, prev1 = 1;
             for (var n = 0U; prev1 >= prev0; n++)
             {
-                Assert.AreEqual(prev0, FibonacciNumbers.SimpleFibonacci(n).fn, 
+                ClassicAssert.AreEqual(prev0, FibonacciNumbers.SimpleFibonacci(n).fn,
                     $"{n}'th Fibonacci number");
-                Assert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursive(n).fn, 
+                ClassicAssert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursive(n).fn,
                     $"{n}'th Fibonacci number");
                 // too long
-                // Assert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursiveBad(n), 
+                // ClassicAssert.AreEqual(prev0, FibonacciNumbers.FibonacciRecursiveBad(n),
                 //     $"{n}'th Fibonacci number");
-                Assert.AreEqual(prev0, FibonacciNumbers.FibonacciByBinaryExponentiation(n).fn, 
+                ClassicAssert.AreEqual(prev0, FibonacciNumbers.FibonacciByBinaryExponentiation(n).fn,
                     $"{n}'th Fibonacci number");
-                Assert.AreEqual(prev0, FibonacciNumbers.FibonacciByMatrixPow(n).fn, 
+                ClassicAssert.AreEqual(prev0, FibonacciNumbers.FibonacciByMatrixPow(n).fn,
                     $"{n}'th Fibonacci number");
-                
-//              Assert.AreEqual(prev0, FibonacciNumbers.FibonacciByDouble(n), 
-//                  $"{n}'th Fibonacci number") 
+
+//              ClassicAssert.AreEqual(prev0, FibonacciNumbers.FibonacciByDouble(n),
+//                  $"{n}'th Fibonacci number")
 //              fails on 71: 308061521170130 instead of 308061521170129
-                
+
                 var next = unchecked(prev0 + prev1);
                 prev0 = prev1;
                 prev1 = next;
             }
         }
-        
+
         [Test]
         public void FibonacciEncodeDecodeTest()
         {
@@ -44,7 +45,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
             {
                 var num = Math.Max(rnd.NextULong(ulong.MaxValue / 2), 1);
                 FibonacciNumbers.FibonacciEncode(num, buffer);
-                Assert.AreEqual(num, FibonacciNumbers.FibonacciDecode(buffer));
+                ClassicAssert.AreEqual(num, FibonacciNumbers.FibonacciDecode(buffer));
             }
         }
     }

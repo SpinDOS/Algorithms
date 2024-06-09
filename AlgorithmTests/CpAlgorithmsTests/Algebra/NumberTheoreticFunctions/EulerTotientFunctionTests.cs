@@ -1,5 +1,6 @@
 using CpAlgorithms.Algebra.NumberTheoreticFunctions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberTheoreticFunctions
 {
@@ -18,7 +19,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberTheoreticFunctions
             };
 
             for (var n = 1; n <= correctValues.Length; n++)
-                Assert.AreEqual(correctValues[n - 1], EulerTotientFunction.Phi(n), $"Phi({n})");
+                ClassicAssert.AreEqual(correctValues[n - 1], EulerTotientFunction.Phi(n), $"Phi({n})");
         }
     }
 }

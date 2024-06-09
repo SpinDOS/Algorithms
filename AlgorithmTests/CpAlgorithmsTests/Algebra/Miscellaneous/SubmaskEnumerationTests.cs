@@ -1,6 +1,7 @@
-using System.Runtime.Intrinsics.X86;
+using System.Numerics;
 using CpAlgorithms.Algebra.Miscellaneous;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Miscellaneous
 {
@@ -19,13 +20,13 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Miscellaneous
             var prev = m + 1;
             foreach (var submask in SubmaskEnumeration.EnumerateBitSubmasksDescending(m))
             {
-                Assert.True(IsSubmask(submask, m));
-                Assert.Less(submask, prev);
+                ClassicAssert.True(IsSubmask(submask, m));
+                ClassicAssert.Less(submask, prev);
                 prev = submask;
                 ++count;
             }
-            
-            Assert.AreEqual(ExpectedSubmasksCount(m), count);
+
+            ClassicAssert.AreEqual(ExpectedSubmasksCount(m), count);
         }
 
         private static bool IsSubmask(uint submask, uint mask)
@@ -36,7 +37,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Miscellaneous
 
         private static int ExpectedSubmasksCount(uint m)
         {
-            var numberOfEnabledBits = Popcnt.PopCount(m);
+            var numberOfEnabledBits = BitOperations.PopCount(m);
             return 1 << (int)numberOfEnabledBits;
         }
     }

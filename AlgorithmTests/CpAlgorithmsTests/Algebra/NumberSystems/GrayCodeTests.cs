@@ -1,12 +1,13 @@
 using CpAlgorithms.Algebra.NumberSystems;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
 {
     public class GrayCodeTests
     {
         private uint[] _grayCodes;
-        
+
         [OneTimeSetUp]
         public void GenerateGrayCodes()
         {
@@ -16,7 +17,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
                     grayCodes[i + j] = i | grayCodes[i - j - 1];
             _grayCodes = grayCodes;
         }
-        
+
         [Test]
         [TestCase(0U)]
         [TestCase(1U)]
@@ -27,9 +28,9 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
         public void IsCorrectGrayCodeTest(uint num)
         {
             var grayCode = new GrayCode(num);
-            Assert.AreEqual(_grayCodes[num], grayCode.Code);
+            ClassicAssert.AreEqual(_grayCodes[num], grayCode.Code);
         }
-        
+
         [Test]
         [TestCase(0U)]
         [TestCase(1U)]
@@ -42,17 +43,17 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
         public void TransformTest(uint num)
         {
             var grayCode = new GrayCode(num);
-            Assert.AreEqual(num, grayCode.ToInteger());
-            Assert.AreEqual(num, grayCode.ToIntegerFast());
+            ClassicAssert.AreEqual(num, grayCode.ToInteger());
+            ClassicAssert.AreEqual(num, grayCode.ToIntegerFast());
         }
 
         [Test]
         public void DefaultGrayCodeTest()
         {
             var defaultGrayCode = new GrayCode();
-            Assert.AreEqual(0U, defaultGrayCode.Code);
-            Assert.AreEqual(0U, defaultGrayCode.ToInteger());
-            Assert.AreEqual(0U, defaultGrayCode.ToIntegerFast());
+            ClassicAssert.AreEqual(0U, defaultGrayCode.Code);
+            ClassicAssert.AreEqual(0U, defaultGrayCode.ToInteger());
+            ClassicAssert.AreEqual(0U, defaultGrayCode.ToIntegerFast());
         }
     }
 }

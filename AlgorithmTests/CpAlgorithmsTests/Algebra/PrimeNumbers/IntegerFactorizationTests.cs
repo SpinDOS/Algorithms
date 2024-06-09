@@ -1,6 +1,7 @@
 using System.Linq;
 using CpAlgorithms.Algebra.PrimeNumbers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
 {
@@ -20,12 +21,12 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
                     .ToList();
 
                 var composite = factors.Aggregate(1L, (x, y) => x * y);
-                Assert.AreEqual(factors, IntegerFactorization.SimpleFactorize(composite), $"Simple factorize for {composite}");
-                Assert.AreEqual(factors, IntegerFactorization.OptimizedFactorize(composite), $"Optimized factorize for {composite}");
-                Assert.AreEqual(factors, IntegerFactorization.EratosthenesSieveFactorize(composite), $"Eratosthenes sieve factorize for {composite}");
+                ClassicAssert.AreEqual(factors, IntegerFactorization.SimpleFactorize(composite), $"Simple factorize for {composite}");
+                ClassicAssert.AreEqual(factors, IntegerFactorization.OptimizedFactorize(composite), $"Optimized factorize for {composite}");
+                ClassicAssert.AreEqual(factors, IntegerFactorization.EratosthenesSieveFactorize(composite), $"Eratosthenes sieve factorize for {composite}");
 
                 var byPowers = factors.GroupBy(it => it).ToDictionary(g => g.Key, g => (uint)g.Count());
-                Assert.AreEqual(byPowers, IntegerFactorization.FactorizeToPowers(composite), $"Factorization to factors with powers for {composite}");
+                ClassicAssert.AreEqual(byPowers, IntegerFactorization.FactorizeToPowers(composite), $"Factorization to factors with powers for {composite}");
             }
         }
     }

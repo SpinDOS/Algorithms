@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KormenAlgorithms.BinaryHeap;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.KormenAlgorithmsTests
 {
@@ -12,25 +13,25 @@ namespace AlgorithmTests.KormenAlgorithmsTests
         public void PiramidalSortTest()
         {
             var rnd = TestContext.CurrentContext.Random;
-            
+
             var arr = new int[rnd.Next(10, 300)];
             for (int i = 0; i < arr.Length; i++)
                 arr[i] = rnd.Next(arr.Length + 100);
 
             var goodSort = arr.OrderBy(it => it).ToArray();
             PiramidalSort.Sort(arr);
-            Assert.AreEqual(arr, goodSort, "Invalid piramidal sorting");
+            ClassicAssert.AreEqual(arr, goodSort, "Invalid piramidal sorting");
         }
-        
+
         [Test]
         [Repeat(1000)]
         public void PriorityQueueTest()
         {
             var rnd = TestContext.CurrentContext.Random;
-            
+
             var queue = new PriorityQueue<int>(5);
             var queueCopy = new List<int>();
-            
+
             var count = rnd.Next(10, 300);
             for (int i = 0; i < count; i++)
             {
@@ -38,14 +39,14 @@ namespace AlgorithmTests.KormenAlgorithmsTests
                 queueCopy.Add(val);
                 queue.Insert(val);
             }
-            
-            Assert.AreEqual(count, queue.Count, "Count is wrong");
-            
+
+            ClassicAssert.AreEqual(count, queue.Count, "Count is wrong");
+
             var goodImpl = new Queue<int>(queueCopy.OrderByDescending(it => it));
             for (int i = 0; i < count; i++)
-                Assert.AreEqual(goodImpl.Dequeue(), queue.ExtractMax(), "ExtractMax returned wrong value");
-            
-            Assert.AreEqual(0, queue.Count, "Priority queue is not empty after all extracts");
+                ClassicAssert.AreEqual(goodImpl.Dequeue(), queue.ExtractMax(), "ExtractMax returned wrong value");
+
+            ClassicAssert.AreEqual(0, queue.Count, "Priority queue is not empty after all extracts");
         }
     }
 }

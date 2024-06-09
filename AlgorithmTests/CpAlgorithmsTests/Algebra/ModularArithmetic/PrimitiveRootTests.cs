@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -14,12 +15,12 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
             for (var i = 1U; i < m; i++)
             {
                 if (primitiveRootsOfM.Contains(i))
-                    Assert.True(PrimitiveRoot.IsPrimitiveRoot(i, m), $"{i} must be primitive root of {m}");
+                    ClassicAssert.True(PrimitiveRoot.IsPrimitiveRoot(i, m), $"{i} must be primitive root of {m}");
                 else
-                    Assert.False(PrimitiveRoot.IsPrimitiveRoot(i, m), $"{i} must not be primitive root of {m}");
+                    ClassicAssert.False(PrimitiveRoot.IsPrimitiveRoot(i, m), $"{i} must not be primitive root of {m}");
             }
         }
-        
+
         [Test]
         [TestCase(1U)]
         [TestCase(2U)]
@@ -31,8 +32,8 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         public void PrimitiveRootTest(uint m)
         {
             var primitiveRoot = PrimitiveRoot.CalculatePrimitiveRoot(m);
-            Assert.NotNull(primitiveRoot);
-            Assert.True(PrimitiveRoot.IsPrimitiveRoot(primitiveRoot.Value, m), m.ToString());
+            ClassicAssert.NotNull(primitiveRoot);
+            ClassicAssert.True(PrimitiveRoot.IsPrimitiveRoot(primitiveRoot.Value, m), m.ToString());
         }
 
         [Test]
@@ -42,7 +43,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         [TestCase(92U)]
         public void NoPrimitiveRootTest(uint m)
         {
-            Assert.Null(PrimitiveRoot.CalculatePrimitiveRoot(m));
+            ClassicAssert.Null(PrimitiveRoot.CalculatePrimitiveRoot(m));
         }
     }
 }

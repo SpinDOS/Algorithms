@@ -2,6 +2,7 @@ using System.Linq;
 using CpAlgorithms.Algebra.Fundamentals;
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -15,11 +16,11 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
             var a = rnd.Next(1, 100_000);
             var m = rnd.Next(2, 100_000);
             var inverseExists = EuclideanGcdAlgorithm.Gcd(a, m) == 1;
-            Assert.AreEqual(inverseExists, ModularInverse.EuclideanModularInverse(a, m, out var x));
+            ClassicAssert.AreEqual(inverseExists, ModularInverse.EuclideanModularInverse(a, m, out var x));
             if (inverseExists)
                 AssertModularInverse(a, x, m);
         }
-        
+
         [Test]
         public void ModularInverseForPrimeTest()
         {
@@ -30,7 +31,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
                     .Select(_ => rnd.Next(1, 100_000))
                     .Where(a => a % prime != 0)
                     .Take(10);
-                
+
                 foreach (var a in coprimes)
                 {
                     var inverse = ModularInverse.BinaryExponentiationModularInverse(a, prime);
@@ -38,7 +39,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
                 }
             }
         }
-        
+
         [Test]
         public void ModularInverseForRangeTest()
         {
@@ -52,7 +53,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 
         private void AssertModularInverse(long a, long x, long m)
         {
-            Assert.AreEqual(1, (a * x) % m, $"({a} * {x}) % {m}");
+            ClassicAssert.AreEqual(1, (a * x) % m, $"({a} * {x}) % {m}");
         }
     }
 }

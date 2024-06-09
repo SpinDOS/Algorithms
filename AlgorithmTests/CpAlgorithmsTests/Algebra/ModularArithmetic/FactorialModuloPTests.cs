@@ -1,5 +1,6 @@
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -12,7 +13,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         [TestCase(12U, 11U)]
         public void FactorialModuloPTest(uint n, uint p)
         {
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 NaiveFactorialModuloP(n, p),
                 FactorialModuloP.CalculateFactorialModuloP(n, p));
         }

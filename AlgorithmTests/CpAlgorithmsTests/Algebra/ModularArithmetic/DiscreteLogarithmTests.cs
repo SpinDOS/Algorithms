@@ -1,6 +1,7 @@
 using CpAlgorithms.Algebra.Fundamentals.BinaryExponentiation;
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -15,14 +16,14 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
             var b = (uint)FastArithmetics.ModuloPow(a, x, m);
 
             var x1 = DiscreteLogarithm.SimpleSolve(a, b, m);
-            Assert.NotNull(x1, "SimpleSolve");
+            ClassicAssert.NotNull(x1, "SimpleSolve");
             var b1 = (uint)FastArithmetics.ModuloPow(a, x1.Value, m);
-            Assert.AreEqual(b, b1, "SimpleSolve");
+            ClassicAssert.AreEqual(b, b1, "SimpleSolve");
 
             var x2 = DiscreteLogarithm.OptimizedSolve(a, b, m);
-            Assert.NotNull(x2, "OptimizedSolve");
+            ClassicAssert.NotNull(x2, "OptimizedSolve");
             var b2 = (uint)FastArithmetics.ModuloPow(a, x2.Value, m);
-            Assert.AreEqual(b, b2, "OptimizedSolve");
+            ClassicAssert.AreEqual(b, b2, "OptimizedSolve");
         }
 
         [Test]
@@ -30,8 +31,8 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         [TestCase(2U, 3U, 7U)]
         public void TestNoSolution(uint a, uint b, uint m)
         {
-            Assert.Null(DiscreteLogarithm.SimpleSolve(a, b, m), "SimpleSolve");
-            Assert.Null(DiscreteLogarithm.OptimizedSolve(a, b, m), "OptimizedSolve");
+            ClassicAssert.Null(DiscreteLogarithm.SimpleSolve(a, b, m), "SimpleSolve");
+            ClassicAssert.Null(DiscreteLogarithm.OptimizedSolve(a, b, m), "OptimizedSolve");
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Numerics;
 using CpAlgorithms;
 using CpAlgorithms.Algebra.Fundamentals.BinaryExponentiation;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
 {
@@ -18,15 +19,15 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
                 {
                     var naivePow = (long) NaivePow(x, y);
                     var fastPow = FastArithmetics.Pow(x, y);
-                    Assert.AreEqual(naivePow, fastPow, $"Wrong fast pow {x} ^ {y}");
+                    ClassicAssert.AreEqual(naivePow, fastPow, $"Wrong fast pow {x} ^ {y}");
                 }
         }
-        
+
         [Test]
         public void FastPowModuloTest()
         {
             var maxModuloWithoutOverflow = (long)Math.Sqrt(long.MaxValue);
-            
+
             var modulos = Enumerable.Range(1, 10).Select(it => (long)it).ToList();
             for (var powOf10 = 1U; true; powOf10++)
             {
@@ -35,14 +36,14 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
                     break;
                 modulos.Add((long)modulo);
             }
-            
+
             foreach (var m in modulos)
                 for (var x = -8L; x <= 8; x++)
                     for (var y = 0U; y < 40; y++)
                     {
                         var naivePow = (long)(NaivePow(x, y) % m);
                         var fastPow = FastArithmetics.ModuloPow(x, y, m);
-                        Assert.AreEqual(naivePow, fastPow, $"Wrong fast modulo pow ({x} ^ {y}) % {m}");
+                        ClassicAssert.AreEqual(naivePow, fastPow, $"Wrong fast modulo pow ({x} ^ {y}) % {m}");
                     }
         }
 
@@ -55,7 +56,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
                     {
                         var naiveMultiply = (long) ((new BigInteger(x) * y) % m);
                         var fastMultiply = FastArithmetics.ModuloBigMultiply(x, y, m);
-                        Assert.AreEqual(naiveMultiply, fastMultiply, $"Wrong modulo multiply ({x} * {y}) % {m}");
+                        ClassicAssert.AreEqual(naiveMultiply, fastMultiply, $"Wrong modulo multiply ({x} * {y}) % {m}");
                     }
         }
 
@@ -69,14 +70,14 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
             foreach (var permutation in GetPermutationsForTest(stringForPermutation.Length))
             {
                 var expectedResult = stringForPermutation;
-            
+
                 for (var k = 0U; k < 100; k++)
                 {
                     var sourceArray = stringForPermutation.ToCharArray();
                     FastPermutation.ApplyPermutation(sourceArray, permutation.ToArray(), k);
-                    Assert.AreEqual(expectedResult, new string(sourceArray), 
+                    ClassicAssert.AreEqual(expectedResult, new string(sourceArray),
                         $"Failed applying permutation '{string.Join(", ", permutation)}' {k} times");
-                
+
                     expectedResult = new string(permutation.Select(i => expectedResult[i]).ToArray());
                 }
             }
@@ -88,10 +89,10 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
             for (var k = 0U; k < 10; k++)
             {
                 var powedMatrix = FastArithmetics.MatrixPow(MatrixHelper.OneMatrix(3), k);
-                Assert.AreEqual(MatrixHelper.OneMatrix(3), powedMatrix);
+                ClassicAssert.AreEqual(MatrixHelper.OneMatrix(3), powedMatrix);
             }
 
-            Assert.AreEqual(new long[2, 2]
+            ClassicAssert.AreEqual(new long[2, 2]
                 {
                     {-275, -50},
                     {75, -350},
@@ -107,41 +108,41 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
         [Test]
         public void MatrixMultiplyTest()
         {
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 new long[2, 4]
                 {
-                    { -1, -5, 6, 0 }, 
+                    { -1, -5, 6, 0 },
                     { -1, -5, 8, 4 },
-                }, 
+                },
                 MatrixHelper.Multiply(
                     new long[2, 3]
                     {
-                        { 1, 2, 3 }, 
+                        { 1, 2, 3 },
                         { 2, 3, 4 }
                     },
                     new long[3, 4]
                     {
-                        { 2, 3, 1, 4 }, 
-                        { -3, -1, -2, 4 }, 
+                        { 2, 3, 1, 4 },
+                        { -3, -1, -2, 4 },
                         { 1, -2, 3, -4 }
                     }));
-            
-            Assert.AreEqual(
+
+            ClassicAssert.AreEqual(
                 new long[1, 1] { { 6 } },
                 MatrixHelper.Multiply(
-                    new long[1, 2] 
-                        { { 1, 2 } }, 
+                    new long[1, 2]
+                        { { 1, 2 } },
                     new long[2, 1]
                     {
-                        { 0 }, 
+                        { 0 },
                         { 3 }
                     }));
-            
-            Assert.AreEqual(
+
+            ClassicAssert.AreEqual(
                 new long[3, 1]
                 {
-                    { -5 }, 
-                    { 10 }, 
+                    { -5 },
+                    { 10 },
                     { -8 }
                 },
                 MatrixHelper.Multiply(
@@ -150,10 +151,10 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
                         { 1, -2 },
                         { -4, 3 },
                         { 2, -3 }
-                    }, 
+                    },
                     new long[2, 1]
                     {
-                        { -1 }, 
+                        { -1 },
                         { 2 }
                     }));
         }
@@ -195,7 +196,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
                 result.Add(currentPermutation.ToArray());
                 return;
             }
-            
+
             var nextIndex = changeIndex + 1;
             for (var i = changeIndex; i < currentPermutation.Length; i++)
             {

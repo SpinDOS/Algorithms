@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using CpAlgorithms.Algebra.Fundamentals;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
 {
@@ -11,19 +12,19 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
         [TestCaseSource(nameof(GcdTestCaseData))]
         public void GcdTest(long a, long b, long gcd)
         {
-            Assert.AreEqual(gcd, EuclideanGcdAlgorithm.Gcd(a, b));
-            Assert.AreEqual(gcd, EuclideanGcdAlgorithm.Gcd(b, a));
+            ClassicAssert.AreEqual(gcd, EuclideanGcdAlgorithm.Gcd(a, b));
+            ClassicAssert.AreEqual(gcd, EuclideanGcdAlgorithm.Gcd(b, a));
         }
-        
+
         [Test]
         [TestCaseSource(nameof(GcdTestCaseData))]
         public void ExtendedGcdTest(long a, long b, long gcd)
         {
-            Assert.AreEqual(gcd, EuclideanGcdAlgorithm.ExtendedGcd(a, b, out var x, out var y));
-            Assert.AreEqual(gcd, a * x + b * y);
-            
-            Assert.AreEqual(gcd, EuclideanGcdAlgorithm.ExtendedGcd(b, a, out x, out y));
-            Assert.AreEqual(gcd, b * x + a * y);
+            ClassicAssert.AreEqual(gcd, EuclideanGcdAlgorithm.ExtendedGcd(a, b, out var x, out var y));
+            ClassicAssert.AreEqual(gcd, a * x + b * y);
+
+            ClassicAssert.AreEqual(gcd, EuclideanGcdAlgorithm.ExtendedGcd(b, a, out x, out y));
+            ClassicAssert.AreEqual(gcd, b * x + a * y);
         }
 
         [Test]
@@ -33,9 +34,9 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.Fundamentals
             var lcm = (new BigInteger(a) * b) / gcd;
             if (lcm > long.MaxValue)
                 Assert.Ignore("Least common multiple is too large for long");
-            
-            Assert.AreEqual((long)lcm, EuclideanGcdAlgorithm.Lcm(a, b));
-            Assert.AreEqual((long)lcm, EuclideanGcdAlgorithm.Lcm(b, a));
+
+            ClassicAssert.AreEqual((long)lcm, EuclideanGcdAlgorithm.Lcm(a, b));
+            ClassicAssert.AreEqual((long)lcm, EuclideanGcdAlgorithm.Lcm(b, a));
         }
 
         private static IEnumerable<TestCaseData> GcdTestCaseData()

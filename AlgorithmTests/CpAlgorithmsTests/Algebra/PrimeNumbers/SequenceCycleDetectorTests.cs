@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CpAlgorithms.Algebra.PrimeNumbers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
 {
@@ -24,16 +25,16 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
             var arr = RandomizeArray(start + period);
             var sequence = GetInfiniteSequence(arr, start, period);
             var sequenceString = string.Join(", ", sequence.Take(start + 3 * period));
-            
+
             var expected = (start, period);
-            Assert.AreEqual(expected, SequenceCycleDetector.Floyd(sequence), $"Floyd ({start}, {period}): " + sequenceString);
-            Assert.AreEqual(expected, SequenceCycleDetector.Brent(sequence), $"Brent ({start}, {period}): " + sequenceString);
+            ClassicAssert.AreEqual(expected, SequenceCycleDetector.Floyd(sequence), $"Floyd ({start}, {period}): " + sequenceString);
+            ClassicAssert.AreEqual(expected, SequenceCycleDetector.Brent(sequence), $"Brent ({start}, {period}): " + sequenceString);
         }
 
         private int[] RandomizeArray(int capacity)
         {
             var rnd = TestContext.CurrentContext.Random;
-            
+
             var randomList = new List<int>(capacity);
             while (randomList.Count != randomList.Capacity)
             {

@@ -1,6 +1,7 @@
 using CpAlgorithms.Algebra.Fundamentals.BinaryExponentiation;
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -14,18 +15,18 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         public void DiscreteRootTest(uint a, uint k, uint m)
         {
             var discreteRoot = DiscreteRoot.CalculateDiscreteRoot(a, k, m);
-            Assert.NotNull(discreteRoot);
-            Assert.AreEqual(a % m, (uint) FastArithmetics.ModuloPow(discreteRoot.Value, k, m));
-            
+            ClassicAssert.NotNull(discreteRoot);
+            ClassicAssert.AreEqual(a % m, (uint) FastArithmetics.ModuloPow(discreteRoot.Value, k, m));
+
             var count = 0U;
             foreach (var discreteRootN in DiscreteRoot.CalculateDiscreteRoots(a, k, m))
             {
-                Assert.AreEqual(a % m, (uint)FastArithmetics.ModuloPow(discreteRootN, k, m), 
+                ClassicAssert.AreEqual(a % m, (uint)FastArithmetics.ModuloPow(discreteRootN, k, m),
                     $"{count}'th discrete root is wrong");
                 ++count;
             }
-            
-            Assert.NotZero(count, "No discrete roots found");
+
+            ClassicAssert.NotZero(count, "No discrete roots found");
         }
 
         [Test]
@@ -33,8 +34,8 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         [TestCase(2U, 2U, 5U)]
         public void NoDiscreteRootTest(uint a, uint k, uint m)
         {
-            Assert.Null(DiscreteRoot.CalculateDiscreteRoot(a, k, m));
-            Assert.IsEmpty(DiscreteRoot.CalculateDiscreteRoots(a, k, m));
+            ClassicAssert.Null(DiscreteRoot.CalculateDiscreteRoot(a, k, m));
+            ClassicAssert.IsEmpty(DiscreteRoot.CalculateDiscreteRoots(a, k, m));
         }
     }
 }

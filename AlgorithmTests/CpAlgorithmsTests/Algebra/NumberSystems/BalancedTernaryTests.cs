@@ -1,5 +1,6 @@
 using CpAlgorithms.Algebra.NumberSystems;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
 {
@@ -14,7 +15,7 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
         public void TransformTest(int num)
         {
             var balancedTernary = new BalancedTernary(num);
-            Assert.AreEqual(num, balancedTernary.ToInteger());
+            ClassicAssert.AreEqual(num, balancedTernary.ToInteger());
         }
 
         [Test]
@@ -27,15 +28,15 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.NumberSystems
         [TestCase(-4, "ZZ")]
         public void ToStringTest(int num, string expected)
         {
-            Assert.AreEqual(expected, new BalancedTernary(num).ToString());
+            ClassicAssert.AreEqual(expected, new BalancedTernary(num).ToString());
         }
 
         [Test]
         public void DefaultBalancedTernaryTest()
         {
             var defaultBalancedTernary = new BalancedTernary();
-            Assert.AreEqual(0, defaultBalancedTernary.ToInteger());
-            Assert.AreEqual("0", defaultBalancedTernary.ToString());
+            ClassicAssert.AreEqual(0, defaultBalancedTernary.ToInteger());
+            ClassicAssert.AreEqual("0", defaultBalancedTernary.ToString());
         }
     }
 }

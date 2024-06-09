@@ -1,12 +1,13 @@
 using CpAlgorithms.Algebra.ModularArithmetic.MontgomeryMultiplication;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
     public class MontgomeryMultiplicationTests
     {
         private const uint Modulo = 127;
-        
+
         private MontgomerySpace _testSpace;
 
         [OneTimeSetUp]
@@ -28,11 +29,11 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         public void TestTransformToFromSpace(uint x)
         {
             var naive = _testSpace.ToSpaceNaive(x);
-            Assert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(naive));
+            ClassicAssert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(naive));
             var simple = _testSpace.ToSpace(x);
-            Assert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(simple));
+            ClassicAssert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(simple));
             var fast = _testSpace.ToSpace(x);
-            Assert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(fast));
+            ClassicAssert.AreEqual(x % Modulo, (uint)_testSpace.FromSpace(fast));
         }
 
         [Test]
@@ -48,15 +49,15 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 
             var montgomerySum = _testSpace.Add(montgomeryLhs, montgomeryRhs);
             var sum = (uint) _testSpace.FromSpace(montgomerySum);
-            Assert.AreEqual((lhs + rhs) % Modulo, sum);
-            
+            ClassicAssert.AreEqual((lhs + rhs) % Modulo, sum);
+
             var montgomerySubtract = _testSpace.Subtract(montgomeryLhs, montgomeryRhs);
             var subtract = (uint) _testSpace.FromSpace(montgomerySubtract);
-            Assert.AreEqual(ModuloSubtract(lhs, rhs), subtract);
-            
+            ClassicAssert.AreEqual(ModuloSubtract(lhs, rhs), subtract);
+
             var montgomeryProduct = _testSpace.Multiply(montgomeryLhs, montgomeryRhs);
             var product = (uint) _testSpace.FromSpace(montgomeryProduct);
-            Assert.AreEqual((lhs * rhs) % Modulo, product);
+            ClassicAssert.AreEqual((lhs * rhs) % Modulo, product);
         }
 
         private static uint ModuloSubtract(uint lhs, uint rhs) =>

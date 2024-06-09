@@ -1,6 +1,7 @@
 using System.Numerics;
 using CpAlgorithms.Algebra.ModularArithmetic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
 {
@@ -13,16 +14,16 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         {
             GarnerBigInteger.InitPrimes();
         }
-        
+
         [Test]
         [TestCaseSource(nameof(SimpleNumsForTest))]
         public void ParseBigIntegerTest(long num)
         {
             var bigInt = new BigInteger(num);
             var garnerBigInt = new GarnerBigInteger(num);
-            Assert.AreEqual(bigInt, garnerBigInt.ToBigInteger());
+            ClassicAssert.AreEqual(bigInt, garnerBigInt.ToBigInteger());
         }
-        
+
         [Test]
         [TestCaseSource(nameof(SimpleNumsForTest))]
         public void NegateOperatorTest(long num)
@@ -30,8 +31,8 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
             var bigInt = -new BigInteger(num);
             var garnerBigInt = -new GarnerBigInteger(num);
             var garnerBigInt2 = new GarnerBigInteger(-num);
-            Assert.AreEqual(bigInt, garnerBigInt.ToBigInteger());
-            Assert.AreEqual(bigInt, garnerBigInt2.ToBigInteger());
+            ClassicAssert.AreEqual(bigInt, garnerBigInt.ToBigInteger());
+            ClassicAssert.AreEqual(bigInt, garnerBigInt2.ToBigInteger());
         }
 
         [Test]
@@ -43,11 +44,11 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
         [TestCase(-128, 255)]
         public void ArithmeticOperatorsTest(long lhs, long rhs)
         {
-            Assert.AreEqual(lhs + rhs, 
+            ClassicAssert.AreEqual(lhs + rhs,
                 (long)(new GarnerBigInteger(lhs) + new GarnerBigInteger(rhs)).ToBigInteger(), "Operator +");
-            Assert.AreEqual(lhs - rhs, 
+            ClassicAssert.AreEqual(lhs - rhs,
                 (long)(new GarnerBigInteger(lhs) - new GarnerBigInteger(rhs)).ToBigInteger(), "Operator -");
-            Assert.AreEqual(lhs * rhs, 
+            ClassicAssert.AreEqual(lhs * rhs,
                 (long)(new GarnerBigInteger(lhs) * new GarnerBigInteger(rhs)).ToBigInteger(), "Operator *");
         }
 
@@ -57,18 +58,18 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.ModularArithmetic
             var one = new GarnerBigInteger(1);
             var one2 = new GarnerBigInteger(1);
             var minusOne = new GarnerBigInteger(-1);
-            
-            Assert.True(one == one2, "operator ==");
-            Assert.False(one == minusOne, "operator ==");
-            
-            Assert.False(one != one2, "operator !=");
-            Assert.True(one != minusOne, "operator !=");
-            
-            Assert.True(one.Equals(one2), "Equals");
-            Assert.False(one.Equals(minusOne), "Equals");
-            
-            Assert.AreEqual(one.GetHashCode(), one2.GetHashCode(), "GetHashCode");
-            Assert.AreNotEqual(one.GetHashCode(), minusOne.GetHashCode(), "GetHashCode");
+
+            ClassicAssert.True(one == one2, "operator ==");
+            ClassicAssert.False(one == minusOne, "operator ==");
+
+            ClassicAssert.False(one != one2, "operator !=");
+            ClassicAssert.True(one != minusOne, "operator !=");
+
+            ClassicAssert.True(one.Equals(one2), "Equals");
+            ClassicAssert.False(one.Equals(minusOne), "Equals");
+
+            ClassicAssert.AreEqual(one.GetHashCode(), one2.GetHashCode(), "GetHashCode");
+            ClassicAssert.AreNotEqual(one.GetHashCode(), minusOne.GetHashCode(), "GetHashCode");
         }
     }
 }

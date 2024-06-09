@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NestedSets;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.AlgorithmsTests
 {
@@ -13,20 +14,20 @@ namespace AlgorithmTests.AlgorithmsTests
         {
             var classicTree = RandomizeClassicTree();
             var nestedSets = NestedSetsCreator.ToNestedSet(classicTree);
-            
-            Assert.That(nestedSets, Is.All.Matches<Node>(it => it.Left < it.Right), 
+
+            Assert.That(nestedSets, Is.All.Matches<Node>(it => it.Left < it.Right),
                 "Left is not less than right");
 
             var minLeft = nestedSets.Min(it => it.Left);
-            Assert.AreEqual(1, minLeft, "Minimal left is not 1");
+            ClassicAssert.AreEqual(1, minLeft, "Minimal left is not 1");
 
             var maxRight = nestedSets.Max(it => it.Right);
-            Assert.AreEqual(nestedSets.Count * 2, maxRight, "Max right is not equal to double node count");
+            ClassicAssert.AreEqual(nestedSets.Count * 2, maxRight, "Max right is not equal to double node count");
 
-            Assert.That(nestedSets, Is.All.Matches<Node>(it => (it.Right - it.Left) % 2 == 1), 
+            Assert.That(nestedSets, Is.All.Matches<Node>(it => (it.Right - it.Left) % 2 == 1),
                 "There are nodes with even difference of right and left");
-            
-            Assert.That(nestedSets, Is.All.Matches<Node>(it => (it.Left % 2) == (it.Level % 2)), 
+
+            Assert.That(nestedSets, Is.All.Matches<Node>(it => (it.Left % 2) == (it.Level % 2)),
                 "There are nodes with invalid oddness of left and level");
 
             var allKeys = nestedSets.Select(it => it.Left)
@@ -38,24 +39,24 @@ namespace AlgorithmTests.AlgorithmsTests
 
         private void ValidateTreesAreEqual(List<ClassicNode> classicTree, List<Node> nestedSets)
         {
-            Assert.AreEqual(classicTree.Count, nestedSets.Count, "NestedSets Count differs");
-            
+            ClassicAssert.AreEqual(classicTree.Count, nestedSets.Count, "NestedSets Count differs");
+
             foreach (var classicNode in classicTree)
             {
                 var nestedSetNode = nestedSets.SingleOrDefault(it => it.Value == classicNode.Id);
-                Assert.NotNull(nestedSetNode, "Could not find node with id " + classicNode.Id);
+                ClassicAssert.NotNull(nestedSetNode, "Could not find node with id " + classicNode.Id);
                 if (classicNode.ParentId == null)
                 {
-                    Assert.AreEqual(1, nestedSetNode.Left, "Root's left is not 1");
+                    ClassicAssert.AreEqual(1, nestedSetNode.Left, "Root's left is not 1");
                     continue;
                 }
-                
+
                 var parentNode = nestedSets.SingleOrDefault(it => it.Value == classicNode.ParentId);
-                Assert.NotNull(nestedSetNode, "Could not find node with id " + classicNode.ParentId);
-                
-                Assert.AreEqual(parentNode.Level + 1, nestedSetNode.Level, "Child Level is wrong");
-                Assert.Greater(nestedSetNode.Left, parentNode.Left, "Child's Left is not greater than parent's Left");
-                Assert.Less(nestedSetNode.Right, parentNode.Right, "Child's Right is not less than parent's Right");
+                ClassicAssert.NotNull(nestedSetNode, "Could not find node with id " + classicNode.ParentId);
+
+                ClassicAssert.AreEqual(parentNode.Level + 1, nestedSetNode.Level, "Child Level is wrong");
+                ClassicAssert.Greater(nestedSetNode.Left, parentNode.Left, "Child's Left is not greater than parent's Left");
+                ClassicAssert.Less(nestedSetNode.Right, parentNode.Right, "Child's Right is not less than parent's Right");
             }
         }
 
@@ -63,7 +64,7 @@ namespace AlgorithmTests.AlgorithmsTests
         {
             var rnd = TestContext.CurrentContext.Random;
             var count = rnd.Next(20, 100);
-            
+
             var list = new List<ClassicNode>();
             for (var i = 0; i < count; i++)
             {

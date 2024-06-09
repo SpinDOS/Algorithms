@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using CpAlgorithms.Algebra.PrimeNumbers;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
 {
@@ -13,8 +14,8 @@ namespace AlgorithmTests.CpAlgorithmsTests.Algebra.PrimeNumbers
             foreach (var num in Enumerable.Range(0, PrimeNumbersSequence.Primes.Max() + 1))
             {
                 var isPrime = Array.BinarySearch(PrimeNumbersSequence.Primes, num) >= 0;
-                Assert.AreEqual(isPrime, Primality.IsPrimeSimple((ulong)num), $"Simple primality for {num}");
-                Assert.AreEqual(isPrime, Primality.MillerRabin(num), $"MillerRabin for {num}");
+                ClassicAssert.AreEqual(isPrime, Primality.IsPrimeSimple((ulong)num), $"Simple primality for {num}");
+                ClassicAssert.AreEqual(isPrime, Primality.MillerRabin(num), $"MillerRabin for {num}");
             }
         }
     }
